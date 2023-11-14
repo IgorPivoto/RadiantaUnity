@@ -38,7 +38,8 @@ public class Controle_Dialago : MonoBehaviour
 
     public void ProximaFrase()
     {
-        if(dialago.text == sentenca[index]){
+        if(dialago.text == sentenca[index])
+        {
             if(index < sentenca.Length -1)
             {
                 index++;

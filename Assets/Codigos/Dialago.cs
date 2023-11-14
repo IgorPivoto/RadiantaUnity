@@ -24,7 +24,8 @@ public class Dialago : MonoBehaviour
     {
         InteraçãoDialago();
     }
-    private void Update() {
+    private void Update() 
+    {
         if(Input.GetKeyDown(KeyCode.Space) && naArea)
         {
             cd.Discurso(/*perfil,*/ textoDialago, nomeAtorDialago);
@@ -48,7 +49,7 @@ public class Dialago : MonoBehaviour
     }
     private void OnDrawGizmosSelected() 
     {
-     Gizmos.DrawWireSphere(transform.position, raio);   
+        Gizmos.DrawWireSphere(transform.position, raio);   
     }
 
 }
