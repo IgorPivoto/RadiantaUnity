@@ -9,5 +9,6 @@ Programadores:
 - [@IgorPivoto](https://github.com/IgorPivoto)
 - [@xico-png](https://github.com/xico-png)
 - [@HanypE](https://github.com/HanypE)
+
 Artistas:
 - [@JiscoTorres](https://github.com/JiscoTorres)
