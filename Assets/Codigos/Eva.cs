@@ -15,6 +15,13 @@ public class Eva : MonoBehaviour
     [SerializeField] float dashVelocidade;
 
     [SerializeField] internal float tempoImpedeDash;
+    [SerializeField] float tempoParaAtivarMana = 2f;
+    [SerializeField] float manaAtual = 0f;
+    [SerializeField] float manaMaxima = 100f;
+    private int DashTemp = 1;
+
+    private bool estaPressionandoEspaco = false;
+    private float tempoPressionandoEspaco = 0f;
 
     [SerializeField]
     [Range(0,100)] 
@@ -48,11 +55,46 @@ public class Eva : MonoBehaviour
     // Update is called once per frame
     void Update()
     {   
+        ApertandoMana();
         Movimento();
         Impulso();
         Ataque();
         Morte();
         
+    }
+    void ApertandoMana()
+    {
+        if (Input.GetKey(KeyCode.Space))
+        {
+            if (!estaPressionandoEspaco)
+            {
+                estaPressionandoEspaco = true;
+            }
+
+            // Incrementa o tempo que a tecla está sendo pressionada
+            tempoPressionandoEspaco += Time.deltaTime;
+
+            // Verifica se o tempo de pressionar a tecla é maior ou igual ao tempo desejado
+            if (tempoPressionandoEspaco >= tempoParaAtivarMana)
+            {
+                AtivarMana();
+            }
+        }
+        else
+        {
+            // Se a tecla de espaço não está sendo pressionada, reinicia as variáveis
+            estaPressionandoEspaco = false;
+            tempoPressionandoEspaco = 0f;
+        }
+    }
+     void AtivarMana()
+    {
+        // Ativa a mana e reinicia as variáveis
+        manaAtual = manaMaxima;
+        estaPressionandoEspaco = false;
+        tempoPressionandoEspaco = 0f;
+        Debug.Log("Mana ativada!");
+        DashTemp =4;
     }
 
     void Movimento()
@@ -85,11 +127,12 @@ public class Eva : MonoBehaviour
             { 
                 if(Input.GetKeyDown(KeyCode.LeftShift) && podeDash)
                 {
-                    velocidadeAtual = dashVelocidade;
+                    velocidadeAtual = dashVelocidade*DashTemp;
                     estamina -= 20;
                     Invoke("Posdash",0.1f);
                     podeDash = false; 
                     Invoke("HabilitarDash", tempoImpedeDash);
+                    DashTemp =1;
                 }
             }
         }
@@ -133,6 +176,8 @@ public class Eva : MonoBehaviour
     {
         if(destravaAtaque == true)
         {
+            
+            
             float Horizontal = Input.GetAxis("Horizontal");
             float Vertical = Input.GetAxis("Vertical");
             if(Input.GetAxis("Fire1")!=0f&&podeAtacar)
