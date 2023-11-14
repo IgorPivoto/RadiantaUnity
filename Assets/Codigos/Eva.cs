@@ -1,66 +1,58 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.U2D.IK;
-using UnityEngine.UI;
+
 
 public class Eva : MonoBehaviour
 {
     
     #region varivavel
-    [Header("Configuração da EVA")]
+    [Header("Configuração de velocidade")]
     [SerializeField] internal float velocidade;
     
     [SerializeField] float dashVelocidade;
 
     [SerializeField] internal float tempoImpedeDash;
 
-    [SerializeField] Rigidbody2D rig;
-
-    [SerializeField] Animator anim;
-
-    [SerializeField] Transform skin;
-
     [SerializeField]
     [Range(0,100)] 
     [Tooltip("Aqui você pode escolher a quantidade de estamina que o player ira usar.")]
     internal int estamina = 100;
 
+    [Header("Configuração de componentes")]
+    
+    [SerializeField] Rigidbody2D rig;
+
+    [SerializeField] Animator anim;
+
+    [SerializeField] Transform skin;
+   
     float velocidadeAtual;
-
     bool podeDash = true;
-    
     bool podeAtacar = true;
-
     bool destravaAtaque = false;
-    
-    
+    private float tempoEstamina = 0;
 
     #endregion
 
-    private float tempoEstamina;
+    
     void Start()
     {
         //rig = GetComponent<Rigidbody2D>();
         velocidadeAtual = velocidade;
-        DontDestroyOnLoad(transform.gameObject);
-        tempoEstamina = Time.realtimeSinceStartup;
+        DontDestroyOnLoad(transform.gameObject);     
     }
 
     // Update is called once per frame
     void Update()
     {   
         Movimento();
-        if(estamina>=20){
-            Impulso();
-        }
-        
+        Impulso();
         Ataque();
         Morte();
-        SobeEstamina();
+        
     }
 
     void Movimento()
@@ -86,35 +78,45 @@ public class Eva : MonoBehaviour
 
     void Impulso()
     {
-        if(Input.GetKeyDown(KeyCode.LeftShift) && podeDash)
+        Vector3 movimento = new Vector3(Input.GetAxis("Horizontal"),Input.GetAxis("Vertical"),0f);
+        if(movimento.x != 0 || movimento.y != 0)
         {
-            velocidadeAtual = dashVelocidade;
-            estamina -= 20;
-            Invoke("Posdash",0.1f);
-            podeDash = false; 
-            Invoke("HabilitarDash", tempoImpedeDash);
+            if(estamina>=20)
+            { 
+                if(Input.GetKeyDown(KeyCode.LeftShift) && podeDash)
+                {
+                    velocidadeAtual = dashVelocidade;
+                    estamina -= 20;
+                    Invoke("Posdash",0.1f);
+                    podeDash = false; 
+                    Invoke("HabilitarDash", tempoImpedeDash);
+                }
+            }
         }
+        else
+        {
+            Debug.Log("pode nao meu fi");
+        }
+        Debug.Log("estou subindo estamina");
+        SobeEstamina();
     }
 
 
     private void SobeEstamina()
-    {
+    {   
         Hud hud = gameObject.GetComponent<Hud>();
-        float tempoAtual = Time.realtimeSinceStartup;
-        float tempoDecorrido = tempoAtual - tempoEstamina;
 
-        if (tempoDecorrido >= 1f)
+        Debug.Log("entrei no sobe esramina");
+        //Debug.Log(tempoEstamina);
+        tempoEstamina += Time.deltaTime;
+        if(tempoEstamina >= 2.0f)
         {
-            tempoEstamina = tempoAtual;
+            tempoEstamina = 0;
             estamina += 10;
+            hud.ControlaBarraEstamina();
             estamina = Mathf.Clamp(estamina, 0, 100);
-            
         }
-       
     }
-
-    
-
 
 
     void Posdash()

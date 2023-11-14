@@ -29,6 +29,8 @@ public class Hud : MonoBehaviour
     [SerializeField] Sprite hudDash90;
     [SerializeField] Sprite hudDash100;
     [SerializeField] Image hudDash;
+
+    [SerializeField] Image hudBarraEstamina;
     
 
 
@@ -37,11 +39,16 @@ public class Hud : MonoBehaviour
     #endregion
     
 
+
+    [SerializeField] float duracaoBarraEstamina = 2.0f; // Duração total da barra em segundos
+
+    private float tempoDecorrido = 0.0f; 
+
     void Update()
     {
         ControlaHudVida();
         ControleHudTempoDash();
-       
+        ControlaBarraEstamina();
     }
      
 
@@ -125,7 +132,27 @@ public class Hud : MonoBehaviour
         {
             hudDash.sprite = hudDash100;
         }
+    
+    }
+    internal void ControlaBarraEstamina()
+    {
+        Eva evaAtributos = gameObject.GetComponent<Eva>();
 
+        if (evaAtributos.estamina > 0)
+        {
+            // Atualiza o tempo decorrido e normaliza para a escala de 0 a 1
+            tempoDecorrido = Mathf.Clamp(tempoDecorrido + Time.deltaTime, 0.0f, duracaoBarraEstamina);
+            float percentualCompleto = tempoDecorrido / duracaoBarraEstamina;
+
+            // Atualiza a fillAmount da barra de estamina
+            hudBarraEstamina.fillAmount = percentualCompleto;
+        }
+        else
+        {
+            // Reseta o tempo decorrido quando a estamina é zero
+            tempoDecorrido = 0.0f;
+            hudBarraEstamina.fillAmount = 0.0f;
+        }
     }
 
 
