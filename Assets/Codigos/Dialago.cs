@@ -26,7 +26,7 @@ public class Dialago : MonoBehaviour
     }
     private void Update() 
     {
-        if(Input.GetKeyDown(KeyCode.Space) && naArea)
+        if(Input.GetKeyDown(KeyCode.T) && naArea)
         {
             cd.Discurso(/*perfil,*/ textoDialago, nomeAtorDialago);
         }
