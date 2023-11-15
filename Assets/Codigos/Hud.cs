@@ -33,8 +33,6 @@ public class Hud : MonoBehaviour
     [SerializeField] Image hudBarraEstamina;
 
 
-    float tempoBarraEStamina = 0;
-
     
     #endregion
     

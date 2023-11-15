@@ -87,7 +87,7 @@ public class Eva : MonoBehaviour
             tempoPressionandoEspaco = 0f;
         }
     }
-     void AtivarMana()
+    void AtivarMana()
     {
         // Ativa a mana e reinicia as variáveis
         manaAtual = manaMaxima;
