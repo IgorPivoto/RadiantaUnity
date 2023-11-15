@@ -40,7 +40,7 @@ public class Eva : MonoBehaviour
     bool podeDash = true;
     bool podeAtacar = true;
     bool destravaAtaque = false;
-    private float tempoEstamina = 0;
+    internal float tempoEstamina = 0;
 
     #endregion
 
@@ -156,7 +156,7 @@ public class Eva : MonoBehaviour
         {
             tempoEstamina = 0;
             estamina += 10;
-            hud.ControlaBarraEstamina();
+            //hud.ControlaBarraEstamina();
             estamina = Mathf.Clamp(estamina, 0, 100);
         }
     }
