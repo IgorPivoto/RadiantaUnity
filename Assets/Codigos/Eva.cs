@@ -93,7 +93,6 @@ public class Eva : MonoBehaviour
         manaAtual = manaMaxima;
         estaPressionandoEspaco = false;
         tempoPressionandoEspaco = 0f;
-
         Debug.Log("Mana ativada!");
         DashTemp =4;
     }
