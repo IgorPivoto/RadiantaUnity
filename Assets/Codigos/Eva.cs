@@ -34,7 +34,7 @@ public class Eva : MonoBehaviour
 
     [SerializeField] Animator anim;
 
-    [SerializeField] Transform skin;
+    [SerializeField] internal Transform skin;
    
     float velocidadeAtual;
     bool podeDash = true;
@@ -239,15 +239,19 @@ public class Eva : MonoBehaviour
 
     void Morte()
     {
-       // float Horizontal = Input.GetAxis("Horizontal");
-       // float Vertical = Input.GetAxis("Vertical");
+       
         if(GetComponent<VidaEva>().vida <= 0)
         {
-            //anim.SetFloat("homorte",Horizontal);
-            //anim.SetFloat("vermorte",Vertical);
-            skin.GetComponent<Animator>().Play("morte", -1);
+            
+            anim.SetBool("morte",true);
+            
             this.enabled = false;
             
+        }
+        if(GetComponent<VidaEva>().vida > 0)
+        {
+            
+            anim.SetBool("morte",false);
         }
     }
 
