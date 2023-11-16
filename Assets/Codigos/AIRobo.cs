@@ -62,6 +62,7 @@ public class AIRobo : MonoBehaviour
             Eva eva = other.gameObject.GetComponent<Eva>();
             evaVida.RemoveVida(ataque);
             eva.FeedBackDano();
+            
             this.enabled = false;
         }      
     }
