@@ -13,6 +13,8 @@ public class Renascer : MonoBehaviour
     bool renascer1=false;
     float timer = 0;
 
+    internal int numeroDeRespawn = 0;
+
     // Update is called once per frame
     void Update()
     {   
@@ -31,6 +33,7 @@ public class Renascer : MonoBehaviour
                     eva.transform.position = portaoFinaldaVila.transform.position;
                     vidaEva.vida = 100;
                     timer = 0;
+                    numeroDeRespawn ++;
                 }   
             }
         }
