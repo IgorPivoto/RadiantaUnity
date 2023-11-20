@@ -51,6 +51,8 @@ public class Controle_Dialago : MonoBehaviour
                 dialago.text = "";
                 index =0;
                 objetoDialago.SetActive(false);
+                FindObjectOfType<Dialago>().PodeFalar();
+                
             }
         }
         

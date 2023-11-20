@@ -35,11 +35,13 @@ public class Eva : MonoBehaviour
     [SerializeField] Animator anim;
 
     [SerializeField] internal Transform skin;
+    [SerializeField] GameObject jogador;
    
     float velocidadeAtual;
     bool podeDash = true;
     bool podeAtacar = true;
-    bool destravaAtaque = false;
+    internal bool destravaAtaque = false;
+    [SerializeField] internal bool destravaDash = false;
     internal float tempoEstamina = 0;
 
     #endregion
@@ -49,13 +51,13 @@ public class Eva : MonoBehaviour
     {
         //rig = GetComponent<Rigidbody2D>();
         velocidadeAtual = velocidade;
-        DontDestroyOnLoad(transform.gameObject);     
+        DontDestroyOnLoad(jogador);     
     }
 
     // Update is called once per frame
     void Update()
     {   
-        ApertandoMana();
+        //ApertandoMana();
         Movimento();
         Impulso();
         Ataque();
@@ -120,6 +122,9 @@ public class Eva : MonoBehaviour
 
     void Impulso()
     {
+        if(destravaDash == true)
+        {
+        
         Vector3 movimento = new Vector3(Input.GetAxis("Horizontal"),Input.GetAxis("Vertical"),0f);
         if(movimento.x != 0 || movimento.y != 0)
         {
@@ -138,10 +143,11 @@ public class Eva : MonoBehaviour
         }
         else
         {
-            Debug.Log("pode nao meu fi");
+            
         }
-        Debug.Log("estou subindo estamina");
+        
         SobeEstamina();
+        }
     }
 
 
@@ -149,7 +155,7 @@ public class Eva : MonoBehaviour
     {   
         Hud hud = gameObject.GetComponent<Hud>();
 
-        Debug.Log("entrei no sobe esramina");
+       
         //Debug.Log(tempoEstamina);
         tempoEstamina += Time.deltaTime;
         if(tempoEstamina >= 2.0f)
@@ -190,7 +196,7 @@ public class Eva : MonoBehaviour
                 podeAtacar = false;
                 Invoke("TempoImpedeAtaque",1f);
             
-                Debug.Log("Ataque");
+                
             }
             else
             {
@@ -262,6 +268,12 @@ public class Eva : MonoBehaviour
             destravaAtaque = true;
             GameObject espada = GameObject.FindGameObjectWithTag("espada");
             Destroy(espada);
+        }
+        else if(other.collider.CompareTag("Ragu"))
+        {
+            destravaDash = true;
+            GameObject ragu = GameObject.FindGameObjectWithTag("Ragu");
+            Destroy(ragu);
         }
         
     }
