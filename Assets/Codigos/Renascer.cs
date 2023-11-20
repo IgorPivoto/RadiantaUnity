@@ -13,12 +13,12 @@ public class Renascer : MonoBehaviour
     bool renascer1=false;
     float timer = 0;
 
-    internal int numeroDeRespawn = 0;
+    internal int numeroDeRespawn = 4;
 
     // Update is called once per frame
     void Update()
     {   
-        
+        Debug.Log(numeroDeRespawn);
         Eva eva = gameObject.GetComponent<Eva>();
         VidaEva vidaEva = gameObject.GetComponent<VidaEva>();
         if (renascer1 == true)

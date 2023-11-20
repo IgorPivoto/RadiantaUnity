@@ -45,6 +45,7 @@ public class Hud : MonoBehaviour
         ControlaHudVida();
         ControleHudTempoDash();
         ControlaBarraEstamina();
+        AtivaHud();
     }
      
 
@@ -53,6 +54,7 @@ public class Hud : MonoBehaviour
     {
         VidaEva vidaEva = gameObject.GetComponent<VidaEva>();
         //VidaEva vidaEva = GetComponent<VidaEva>();
+        
         if(vidaEva.vida <= 0)
         {
             hud.sprite = hudMorto;
@@ -84,6 +86,7 @@ public class Hud : MonoBehaviour
     {
         Eva evaEstamina = gameObject.GetComponent<Eva>();
 
+        
         if(evaEstamina.estamina <= 0)
         {
             hudDash.sprite = hudDash0;
@@ -128,6 +131,8 @@ public class Hud : MonoBehaviour
         {
             hudDash.sprite = hudDash100;
         }
+        
+        
     
     }
     internal void ControlaBarraEstamina()
@@ -159,6 +164,16 @@ public class Hud : MonoBehaviour
 
         }*/
      
+    }
+
+    void AtivaHud()
+    {
+        Eva evaEstamina = gameObject.GetComponent<Eva>();
+        if (evaEstamina.destravaDash == true)
+        {
+            hudDash.gameObject.SetActive(true);
+        }
+
     }
 
 
