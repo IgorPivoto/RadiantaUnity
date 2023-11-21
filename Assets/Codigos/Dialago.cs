@@ -37,7 +37,7 @@ public class Dialago : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.T) && naArea && falando == false)
         {
             
-            cd.Discurso(/*perfil,*/ textoDialago, nomeAtorDialago);
+            cd.Discurso(textoDialago, nomeAtorDialago);
             falando = true;
             
 
@@ -81,5 +81,7 @@ public class Dialago : MonoBehaviour
     }
     internal void PodeFalar(){
         falando = false;
+        Debug.Log("estou podendo falar");
+        Debug.Log(falando);
     }
 }
