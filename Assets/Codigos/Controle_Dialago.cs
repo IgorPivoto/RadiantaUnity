@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+
+
 public class Controle_Dialago : MonoBehaviour
 {
     
@@ -16,6 +18,7 @@ public class Controle_Dialago : MonoBehaviour
     [SerializeField] float velocidadeDeEscrita;
     private string[] sentenca;
     private int index;
+    private Dialago dialagoCode;
 
     public void Discurso(string[] txt, string nomeAtor)
     {
@@ -40,17 +43,24 @@ public class Controle_Dialago : MonoBehaviour
         {
             if(index < sentenca.Length -1)
             {
+                Debug.Log("comecei a falar");
                 index++;
                 dialago.text = "";
                 StartCoroutine(TipodeSentenca());
             }
             else
             {
-                Debug.Log("estou acabou");
+                
+
                 dialago.text = "";
                 index =0;
-                objetoDialago.SetActive(false);
                 FindObjectOfType<Dialago>().PodeFalar();
+                objetoDialago.SetActive(false);
+                
+
+                Debug.Log("parei de falar");
+
+                
                 
                 
             }
