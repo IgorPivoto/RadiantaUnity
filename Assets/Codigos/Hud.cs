@@ -31,8 +31,6 @@ public class Hud : MonoBehaviour
     [SerializeField] Image hudDash;
 
     [SerializeField] Image hudBarraEstamina;
-    
-
 
 
     
@@ -40,15 +38,14 @@ public class Hud : MonoBehaviour
     
 
 
-    [SerializeField] float duracaoBarraEstamina = 2.0f; // Duração total da barra em segundos
-
-    private float tempoDecorrido = 0.0f; 
+    
 
     void Update()
     {
         ControlaHudVida();
         ControleHudTempoDash();
         ControlaBarraEstamina();
+        AtivaHud();
     }
      
 
@@ -57,6 +54,7 @@ public class Hud : MonoBehaviour
     {
         VidaEva vidaEva = gameObject.GetComponent<VidaEva>();
         //VidaEva vidaEva = GetComponent<VidaEva>();
+        
         if(vidaEva.vida <= 0)
         {
             hud.sprite = hudMorto;
@@ -88,6 +86,7 @@ public class Hud : MonoBehaviour
     {
         Eva evaEstamina = gameObject.GetComponent<Eva>();
 
+        
         if(evaEstamina.estamina <= 0)
         {
             hudDash.sprite = hudDash0;
@@ -132,27 +131,49 @@ public class Hud : MonoBehaviour
         {
             hudDash.sprite = hudDash100;
         }
+        
+        
     
     }
     internal void ControlaBarraEstamina()
     {
         Eva evaAtributos = gameObject.GetComponent<Eva>();
-
-        if (evaAtributos.estamina > 0)
-        {
-            // Atualiza o tempo decorrido e normaliza para a escala de 0 a 1
-            tempoDecorrido = Mathf.Clamp(tempoDecorrido + Time.deltaTime, 0.0f, duracaoBarraEstamina);
-            float percentualCompleto = tempoDecorrido / duracaoBarraEstamina;
-
-            // Atualiza a fillAmount da barra de estamina
+        
+        if(evaAtributos.estamina < 100)
+        {   
+            //evaAtributos.tempoEstamina += Time.deltaTime;
+            float percentualCompleto = evaAtributos.tempoEstamina / 2;
             hudBarraEstamina.fillAmount = percentualCompleto;
+            if(percentualCompleto >= 1.0f)
+            {
+                evaAtributos.tempoEstamina = 0;
+            }
+
         }
-        else
+
+
+        /*if(evaAtributos.estamina < 100)
+        {   
+            tempoBarraEStamina += Time.deltaTime;
+            float percentualCompleto = tempoBarraEStamina / 2;
+            hudBarraEstamina.fillAmount = percentualCompleto;
+            if(percentualCompleto >= 1.0f)
+            {
+                tempoBarraEStamina = 0;
+            }
+
+        }*/
+     
+    }
+
+    void AtivaHud()
+    {
+        Eva evaEstamina = gameObject.GetComponent<Eva>();
+        if (evaEstamina.destravaDash == true)
         {
-            // Reseta o tempo decorrido quando a estamina é zero
-            tempoDecorrido = 0.0f;
-            hudBarraEstamina.fillAmount = 0.0f;
+            hudDash.gameObject.SetActive(true);
         }
+
     }
 
 

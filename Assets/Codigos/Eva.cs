@@ -34,13 +34,15 @@ public class Eva : MonoBehaviour
 
     [SerializeField] Animator anim;
 
-    [SerializeField] Transform skin;
+    [SerializeField] internal Transform skin;
+    [SerializeField] GameObject jogador;
    
     float velocidadeAtual;
     bool podeDash = true;
     bool podeAtacar = true;
-    bool destravaAtaque = false;
-    private float tempoEstamina = 0;
+    internal bool destravaAtaque = false;
+    [SerializeField] internal bool destravaDash = false;
+    internal float tempoEstamina = 0;
 
     #endregion
 
@@ -49,13 +51,13 @@ public class Eva : MonoBehaviour
     {
         //rig = GetComponent<Rigidbody2D>();
         velocidadeAtual = velocidade;
-        DontDestroyOnLoad(transform.gameObject);     
+        DontDestroyOnLoad(jogador);     
     }
 
     // Update is called once per frame
     void Update()
     {   
-        ApertandoMana();
+        //ApertandoMana();
         Movimento();
         Impulso();
         Ataque();
@@ -87,7 +89,7 @@ public class Eva : MonoBehaviour
             tempoPressionandoEspaco = 0f;
         }
     }
-     void AtivarMana()
+    void AtivarMana()
     {
         // Ativa a mana e reinicia as variáveis
         manaAtual = manaMaxima;
@@ -120,6 +122,9 @@ public class Eva : MonoBehaviour
 
     void Impulso()
     {
+        if(destravaDash == true)
+        {
+        
         Vector3 movimento = new Vector3(Input.GetAxis("Horizontal"),Input.GetAxis("Vertical"),0f);
         if(movimento.x != 0 || movimento.y != 0)
         {
@@ -138,10 +143,11 @@ public class Eva : MonoBehaviour
         }
         else
         {
-            Debug.Log("pode nao meu fi");
+            
         }
-        Debug.Log("estou subindo estamina");
+        
         SobeEstamina();
+        }
     }
 
 
@@ -149,14 +155,14 @@ public class Eva : MonoBehaviour
     {   
         Hud hud = gameObject.GetComponent<Hud>();
 
-        Debug.Log("entrei no sobe esramina");
+       
         //Debug.Log(tempoEstamina);
         tempoEstamina += Time.deltaTime;
         if(tempoEstamina >= 2.0f)
         {
             tempoEstamina = 0;
             estamina += 10;
-            hud.ControlaBarraEstamina();
+            //hud.ControlaBarraEstamina();
             estamina = Mathf.Clamp(estamina, 0, 100);
         }
     }
@@ -190,7 +196,7 @@ public class Eva : MonoBehaviour
                 podeAtacar = false;
                 Invoke("TempoImpedeAtaque",1f);
             
-                Debug.Log("Ataque");
+                
             }
             else
             {
@@ -239,15 +245,19 @@ public class Eva : MonoBehaviour
 
     void Morte()
     {
-       // float Horizontal = Input.GetAxis("Horizontal");
-       // float Vertical = Input.GetAxis("Vertical");
+       
         if(GetComponent<VidaEva>().vida <= 0)
         {
-            //anim.SetFloat("homorte",Horizontal);
-            //anim.SetFloat("vermorte",Vertical);
-            skin.GetComponent<Animator>().Play("morte", -1);
+            
+            anim.SetBool("morte",true);
+            
             this.enabled = false;
             
+        }
+        if(GetComponent<VidaEva>().vida > 0)
+        {
+            
+            anim.SetBool("morte",false);
         }
     }
 
@@ -258,6 +268,12 @@ public class Eva : MonoBehaviour
             destravaAtaque = true;
             GameObject espada = GameObject.FindGameObjectWithTag("espada");
             Destroy(espada);
+        }
+        else if(other.collider.CompareTag("Ragu"))
+        {
+            destravaDash = true;
+            GameObject ragu = GameObject.FindGameObjectWithTag("Ragu");
+            Destroy(ragu);
         }
         
     }

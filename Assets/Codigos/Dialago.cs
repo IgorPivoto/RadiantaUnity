@@ -1,7 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using Unity.VisualScripting;
 using UnityEngine;
+
+
 
 public class Dialago : MonoBehaviour
 {
@@ -14,36 +17,65 @@ public class Dialago : MonoBehaviour
     [SerializeField] float raio;
 
     private Controle_Dialago cd;
-    bool naArea;
+    
+    
+    public bool naArea;
+    
+    public bool falando = false;
+
+    public bool travaCodigoDialago = true;
+    
     private void Start() 
     {
-        cd =  FindAnyObjectByType<Controle_Dialago>();
+        cd =  FindObjectOfType<Controle_Dialago>();
     }
-
+    
     private void FixedUpdate() 
-    {
-        InteraçãoDialago();
+    {   
+        
+        if(travaCodigoDialago == false){
+            InteraçãoDialago();
+        }
+        
+        
+     
     }
     private void Update() 
-    {
-        if(Input.GetKeyDown(KeyCode.Space) && naArea)
+    {   
+        Debug.Log("travacodigo" + travaCodigoDialago);
+        if(travaCodigoDialago == false){
+        Debug.Log("falando" + falando);
+        
+        if(Input.GetKeyDown(KeyCode.T) && naArea && falando == false)
         {
-            cd.Discurso(/*perfil,*/ textoDialago, nomeAtorDialago);
+            
+            cd.Discurso(textoDialago, nomeAtorDialago);
+            falando = true;
+            
+
+        }
         }
     }
 
     public void InteraçãoDialago()
     {
+       
+        
         Collider2D hit = Physics2D.OverlapCircle(transform.position, raio, playerLayer);
 
-        if(hit != null)
+        if (hit != null)
         {
             naArea = true;
+            
+            Debug.Log("entrei na area" + naArea);
         }
-        else
+        else 
         {
             naArea = false;
+            
+            Debug.Log("sai da area" + naArea);
         }
+        
     
         
     }
@@ -51,5 +83,23 @@ public class Dialago : MonoBehaviour
     {
         Gizmos.DrawWireSphere(transform.position, raio);   
     }
-
+    
+    
+    internal void PodeFalar(){
+        falando = false;
+        Debug.Log("estou podendo falar");
+        Debug.Log("falando " + falando);
+    }
+    private void OnTriggerEnter2D(Collider2D other) 
+    {
+        if(other.CompareTag("Eva")){
+            travaCodigoDialago = false;
+        }
+    }
+    private void OnTriggerExit2D(Collider2D other) 
+    {
+        if(other.CompareTag("Eva")){
+            travaCodigoDialago = true;
+        }
+    }
 }
