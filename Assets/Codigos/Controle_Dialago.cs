@@ -4,25 +4,25 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+
+
 public class Controle_Dialago : MonoBehaviour
 {
     
     [Header("componentes")]
     [SerializeField] GameObject objetoDialago;
-    //[SerializeField] Image perfil;
     [SerializeField] TextMeshProUGUI dialago;
     [SerializeField] TextMeshProUGUI nomePersonagem;
 
     [Header("configuração")]
-
     [SerializeField] float velocidadeDeEscrita;
     private string[] sentenca;
     private int index;
+    private Dialago dialagoCode;
 
-    public void Discurso(/*Sprite personagem,*/ string[] txt, string nomeAtor)
+    public void Discurso(string[] txt, string nomeAtor)
     {
         objetoDialago.SetActive(true);
-        //perfil.sprite = personagem;
         sentenca = txt;
         nomePersonagem.text = nomeAtor;
         StartCoroutine(TipodeSentenca());
@@ -38,20 +38,30 @@ public class Controle_Dialago : MonoBehaviour
 
     public void ProximaFrase()
     {
+
         if(dialago.text == sentenca[index])
         {
             if(index < sentenca.Length -1)
             {
+                Debug.Log("comecei a falar");
                 index++;
                 dialago.text = "";
                 StartCoroutine(TipodeSentenca());
             }
             else
             {
+                
+
                 dialago.text = "";
                 index =0;
-                objetoDialago.SetActive(false);
                 FindObjectOfType<Dialago>().PodeFalar();
+                objetoDialago.SetActive(false);
+                
+
+                Debug.Log("parei de falar");
+
+                
+                
                 
             }
         }
