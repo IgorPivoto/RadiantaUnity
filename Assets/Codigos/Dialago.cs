@@ -9,7 +9,6 @@ using UnityEngine;
 public class Dialago : MonoBehaviour
 {
 
-    //[SerializeField] Sprite perfil;
     [SerializeField] string[] textoDialago;
     [SerializeField] string nomeAtorDialago;
 
@@ -23,7 +22,7 @@ public class Dialago : MonoBehaviour
     
     public bool falando = false;
 
-    public bool travaCodigoDialago = true;
+    //public bool travaCodigoDialago = true;
     
     private void Start() 
     {
@@ -33,18 +32,13 @@ public class Dialago : MonoBehaviour
     private void FixedUpdate() 
     {   
         
-        if(travaCodigoDialago == false){
-            InteraçãoDialago();
-        }
-        
-        
-     
+        InteraçãoDialago(); 
     }
     private void Update() 
     {   
-        Debug.Log("travacodigo" + travaCodigoDialago);
-        if(travaCodigoDialago == false){
+        //Debug.Log("trava codigo " + travaCodigoDialago);
         Debug.Log("falando" + falando);
+        Debug.Log("estou na area "+ naArea);
         
         if(Input.GetKeyDown(KeyCode.T) && naArea && falando == false)
         {
@@ -54,7 +48,7 @@ public class Dialago : MonoBehaviour
             
 
         }
-        }
+        
     }
 
     public void InteraçãoDialago()
@@ -88,18 +82,7 @@ public class Dialago : MonoBehaviour
     internal void PodeFalar(){
         falando = false;
         Debug.Log("estou podendo falar");
-        Debug.Log("falando " + falando);
+        Debug.Log("posso falar? " + falando);
     }
-    private void OnTriggerEnter2D(Collider2D other) 
-    {
-        if(other.CompareTag("Eva")){
-            travaCodigoDialago = false;
-        }
-    }
-    private void OnTriggerExit2D(Collider2D other) 
-    {
-        if(other.CompareTag("Eva")){
-            travaCodigoDialago = true;
-        }
-    }
+    
 }
