@@ -77,9 +77,12 @@ public class AIRobo : MonoBehaviour
             Renascer renascer = other.gameObject.GetComponent<Renascer>();
             evaVida.RemoveVida(ataque);
             eva.FeedBackDano();
+            //eva.Morte();
+            eva.anim.SetBool("morte",true);
             renascer.numeroDeRespawn ++;
             tempo += Time.deltaTime;
             Debug.Log(tempo);
+            
             
             ResetarInimigo();
                 
