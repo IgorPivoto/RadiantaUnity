@@ -12,4 +12,3 @@ Programadores:
 
 Artistas:
 - [@JiscoTorres](https://github.com/JiscoTorres)
-- [@LucasEBR](https://github.com/LucasEBR)

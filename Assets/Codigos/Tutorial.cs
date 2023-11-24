@@ -41,19 +41,19 @@ public class Tutorial : MonoBehaviour
         if(tutorialCorreDaIa == false)
         {
             TransparenteParaVisivel();
-            //Debug.Log("if");
+            Debug.Log("if");
         }
         else if(tutorialCorreDaIa == true && renascer != null && renascer.numeroDeRespawn >=5)
         {   
             imagemTutorial.enabled = true;
             TransparenteParaVisivel();
             
-            //Debug.Log("elseif");
+            Debug.Log("elseif");
         }
         else
         {
             imagemTutorial.enabled = false;
-            //Debug.Log("else");
+            Debug.Log("else");
         }
         
     }
