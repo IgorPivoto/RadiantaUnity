@@ -46,7 +46,7 @@ public class IA : MonoBehaviour
             this.enabled = false;
         }      
     }
-
+/*
     void OnCollisionExit2D(Collision2D other) 
     {
         if(other.gameObject.CompareTag("Eva"))
@@ -60,5 +60,5 @@ public class IA : MonoBehaviour
         {
             Destroy(this);
         }
-    }
+    }*/
 }
