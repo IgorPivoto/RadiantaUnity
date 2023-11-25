@@ -1,71 +1,29 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 
-
-
-public class Controle_Dialago : MonoBehaviour
+public class Controle_Dialogo : MonoBehaviour
 {
-    
-    [Header("componentes")]
-    [SerializeField] GameObject objetoDialago;
-    [SerializeField] TextMeshProUGUI dialago;
-    [SerializeField] TextMeshProUGUI nomePersonagem;
+    [SerializeField] private bool travaCodigoDialago = true;
 
-    [Header("configuração")]
-    [SerializeField] float velocidadeDeEscrita;
-    private string[] sentenca;
-    private int index;
-    private Dialago dialagoCode;
-
-    public void Discurso(string[] txt, string nomeAtor)
+    public bool TravaCodigoDialago
     {
-        objetoDialago.SetActive(true);
-        sentenca = txt;
-        nomePersonagem.text = nomeAtor;
-        StartCoroutine(TipodeSentenca());
-    }
-    IEnumerator TipodeSentenca()
-    {
-        foreach (char letras in sentenca[index].ToCharArray())
-        {
-            dialago.text += letras;
-            yield return new WaitForSeconds(velocidadeDeEscrita);
-        }
+        get { return travaCodigoDialago; }
+        set { travaCodigoDialago = value; }
     }
 
-    public void ProximaFrase()
+    public void IniciarDialogo(string[] textoDialago, string nomeAtorDialago, Controle_Dialogo_Personagem controlePersonagem)
     {
-
-        if(dialago.text == sentenca[index])
-        {
-            if(index < sentenca.Length -1)
-            {
-                Debug.Log("comecei a falar");
-                index++;
-                dialago.text = "";
-                StartCoroutine(TipodeSentenca());
-            }
-            else
-            {
-                
-
-                dialago.text = "";
-                index =0;
-                FindObjectOfType<Dialago>().PodeFalar();
-                objetoDialago.SetActive(false);
-                
-
-                Debug.Log("parei de falar");
-
-                
-                
-                
-            }
-        }
-        
+        StartCoroutine(ExibirDialogo(textoDialago, nomeAtorDialago, controlePersonagem));
     }
 
+    IEnumerator ExibirDialogo(string[] textoDialago, string nomeAtorDialago, Controle_Dialogo_Personagem controlePersonagem)
+    {
+        // Implemente a lógica de exibição de diálogo, por exemplo, usando caixas de texto, etc.
+        Debug.Log(nomeAtorDialago + ": " + textoDialago[0]);
+
+        yield return new WaitForSeconds(3);  // Espera 3 segundos (ajuste conforme necessário)
+
+        // Depois que o diálogo é exibido, permita que o personagem possa falar novamente
+        controlePersonagem.PodeFalar();
+    }
 }
