@@ -32,6 +32,7 @@ public class Renascer : MonoBehaviour
                    
                     eva.transform.position = portaoFinaldaVila.transform.position;
                     vidaEva.vida = 100;
+                    eva.estamina = 100;
                     timer = 0;
                     numeroDeRespawn ++;
                 }   

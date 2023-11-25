@@ -53,7 +53,10 @@ public class Eva : MonoBehaviour
         DontDestroyOnLoad(jogador);     
     }
 
-    // Update is called once per frame
+    /*void FixedUpdate() 
+    {
+        Movimento();
+    }*/
     void Update()
     {   
         //ApertandoMana();
@@ -106,12 +109,13 @@ public class Eva : MonoBehaviour
         Vector3 movimento = new Vector3(Input.GetAxis("Horizontal"),Input.GetAxis("Vertical"),0f);     
         movimento.Normalize();
 
-        anim.SetFloat("horizontal",movimento.x);
+         anim.SetFloat("horizontal",movimento.x);
         anim.SetFloat("vertical",movimento.y);
         anim.SetFloat("velocidade",movimento.magnitude);
 
         if(movimento != Vector3.zero)
         {
+            Debug.Log("Movimento() chamado");
             anim.SetFloat("idle_horizontal",movimento.x);
             anim.SetFloat("Idle_vertical",movimento.y);
         }

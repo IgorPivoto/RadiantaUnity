@@ -10,15 +10,17 @@ public class Controle_Dialago : MonoBehaviour
 {
     
     [Header("componentes")]
-    [SerializeField] GameObject objetoDialago;
-    [SerializeField] TextMeshProUGUI dialago;
-    [SerializeField] TextMeshProUGUI nomePersonagem;
+    [SerializeField] internal GameObject objetoDialago;
+    [SerializeField] internal TextMeshProUGUI dialago;
+    [SerializeField] internal TextMeshProUGUI nomePersonagem;
 
     [Header("configuração")]
     [SerializeField] float velocidadeDeEscrita;
     private string[] sentenca;
     private int index;
-    private Dialago dialagoCode;
+    //private Dialago dialagoCode;
+    public string[] SentencaParam => sentenca;
+    public string NomeAtorParam => nomePersonagem.text;
 
     public void Discurso(string[] txt, string nomeAtor)
     {
@@ -50,19 +52,11 @@ public class Controle_Dialago : MonoBehaviour
             }
             else
             {
-                
-
                 dialago.text = "";
                 index =0;
                 FindObjectOfType<Dialago>().PodeFalar();
                 objetoDialago.SetActive(false);
-                
-
                 Debug.Log("parei de falar");
-
-                
-                
-                
             }
         }
         
