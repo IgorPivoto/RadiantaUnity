@@ -11,9 +11,7 @@ public class Eva : MonoBehaviour
     #region varivavel
     [Header("Configuração de velocidade")]
     [SerializeField] internal float velocidade;
-    
     [SerializeField] float dashVelocidade;
-
     [SerializeField] internal float tempoImpedeDash;
     [SerializeField] float tempoParaAtivarMana = 2f;
     [SerializeField] float manaAtual = 0f;
@@ -32,10 +30,11 @@ public class Eva : MonoBehaviour
     
     [SerializeField] Rigidbody2D rig;
 
-    [SerializeField] Animator anim;
+    [SerializeField] internal Animator anim;
 
     [SerializeField] internal Transform skin;
     [SerializeField] GameObject jogador;
+    [SerializeField] TrailRenderer trailRenderer;
    
     float velocidadeAtual;
     bool podeDash = true;
@@ -49,12 +48,15 @@ public class Eva : MonoBehaviour
     
     void Start()
     {
-        //rig = GetComponent<Rigidbody2D>();
+        trailRenderer.emitting = false;
         velocidadeAtual = velocidade;
         DontDestroyOnLoad(jogador);     
     }
 
-    // Update is called once per frame
+    /*void FixedUpdate() 
+    {
+        Movimento();
+    }*/
     void Update()
     {   
         //ApertandoMana();
@@ -107,12 +109,13 @@ public class Eva : MonoBehaviour
         Vector3 movimento = new Vector3(Input.GetAxis("Horizontal"),Input.GetAxis("Vertical"),0f);     
         movimento.Normalize();
 
-        anim.SetFloat("horizontal",movimento.x);
+         anim.SetFloat("horizontal",movimento.x);
         anim.SetFloat("vertical",movimento.y);
         anim.SetFloat("velocidade",movimento.magnitude);
 
         if(movimento != Vector3.zero)
         {
+            Debug.Log("Movimento() chamado");
             anim.SetFloat("idle_horizontal",movimento.x);
             anim.SetFloat("Idle_vertical",movimento.y);
         }
@@ -134,6 +137,7 @@ public class Eva : MonoBehaviour
                 {
                     velocidadeAtual = dashVelocidade*DashTemp;
                     estamina -= 20;
+                    trailRenderer.emitting = true;
                     Invoke("Posdash",0.1f);
                     podeDash = false; 
                     Invoke("HabilitarDash", tempoImpedeDash);
@@ -171,6 +175,7 @@ public class Eva : MonoBehaviour
     void Posdash()
     {
         velocidadeAtual = velocidade;
+        trailRenderer.emitting = false;
     }
 
     void HabilitarDash()
@@ -224,7 +229,7 @@ public class Eva : MonoBehaviour
     }*/
     
 
-    public void FeedBackDano()
+    internal void FeedBackDano()
     {
         
         if(GetComponent<VidaEva>().vida > 1)
@@ -243,7 +248,7 @@ public class Eva : MonoBehaviour
         anim.SetBool("hit",false);
     }
 
-    void Morte()
+    internal void Morte()
     {
        
         if(GetComponent<VidaEva>().vida <= 0)

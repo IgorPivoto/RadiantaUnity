@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class NpcDialago : MonoBehaviour
 {
+    /*
     #region variavel
 
     [SerializeField] string[] npcDialago;
@@ -102,5 +103,5 @@ public class NpcDialago : MonoBehaviour
             podeFalar = false;
         }
         
-    }
+    }*/
 }
