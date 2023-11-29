@@ -18,6 +18,7 @@ public class vidaInimigo : MonoBehaviour
         if(quantidadeVida <=0)
         {
             corpoDoInimigo.SetActive(false);
+            GetComponent<drop>().DropdeModeda();
         }
     }
 }

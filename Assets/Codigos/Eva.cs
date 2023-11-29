@@ -13,13 +13,14 @@ public class Eva : MonoBehaviour
     [SerializeField] internal float velocidade;
     [SerializeField] float dashVelocidade;
     [SerializeField] internal float tempoImpedeDash;
-    [SerializeField] float tempoParaAtivarMana = 2f;
+    [SerializeField] int moedas = 0;
+    /*[SerializeField] float tempoParaAtivarMana = 2f;
     [SerializeField] float manaAtual = 0f;
-    [SerializeField] float manaMaxima = 100f;
+    [SerializeField] float manaMaxima = 100f;*/
     private int DashTemp = 1;
 
-    private bool estaPressionandoEspaco = false;
-    private float tempoPressionandoEspaco = 0f;
+    //private bool estaPressionandoEspaco = false;
+    //private float tempoPressionandoEspaco = 0f;
 
     [SerializeField]
     [Range(0,100)] 
@@ -50,7 +51,7 @@ public class Eva : MonoBehaviour
     {
         trailRenderer.emitting = false;
         velocidadeAtual = velocidade;
-        DontDestroyOnLoad(jogador);     
+     
     }
 
     /*void FixedUpdate() 
@@ -245,6 +246,11 @@ public class Eva : MonoBehaviour
             
             anim.SetBool("morte",false);
         }
+    }
+
+    internal void AdicionarValorMoeda(int valor)
+    {
+        moedas += valor; 
     }
 
     void OnCollisionEnter2D(Collision2D other) 
