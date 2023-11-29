@@ -39,7 +39,7 @@ public class Eva : MonoBehaviour
     float velocidadeAtual;
     bool podeDash = true;
     bool podeAtacar = true;
-    internal bool destravaAtaque = false;
+    [SerializeField] internal bool destravaAtaque = false;
     [SerializeField] internal bool destravaDash = false;
     internal float tempoEstamina = 0;
 
@@ -66,7 +66,7 @@ public class Eva : MonoBehaviour
         Morte();
         
     }
-    void ApertandoMana()
+    /*void ApertandoMana()
     {
         if (Input.GetKey(KeyCode.Space))
         {
@@ -99,7 +99,7 @@ public class Eva : MonoBehaviour
         tempoPressionandoEspaco = 0f;
         Debug.Log("Mana ativada!");
         DashTemp =4;
-    }
+    }*/
 
     void Movimento()
     {
@@ -109,7 +109,7 @@ public class Eva : MonoBehaviour
         Vector3 movimento = new Vector3(Input.GetAxis("Horizontal"),Input.GetAxis("Vertical"),0f);     
         movimento.Normalize();
 
-         anim.SetFloat("horizontal",movimento.x);
+        anim.SetFloat("horizontal",movimento.x);
         anim.SetFloat("vertical",movimento.y);
         anim.SetFloat("velocidade",movimento.magnitude);
 
@@ -157,16 +157,11 @@ public class Eva : MonoBehaviour
 
     private void SobeEstamina()
     {   
-        Hud hud = gameObject.GetComponent<Hud>();
-
-       
-        //Debug.Log(tempoEstamina);
         tempoEstamina += Time.deltaTime;
         if(tempoEstamina >= 2.0f)
         {
             tempoEstamina = 0;
             estamina += 10;
-            //hud.ControlaBarraEstamina();
             estamina = Mathf.Clamp(estamina, 0, 100);
         }
     }
@@ -186,22 +181,17 @@ public class Eva : MonoBehaviour
     void Ataque()
     {
         if(destravaAtaque == true)
-        {
-            
-            
+        {  
             float Horizontal = Input.GetAxis("Horizontal");
             float Vertical = Input.GetAxis("Vertical");
-            if(Input.GetAxis("Fire1")!=0f&&podeAtacar)
+            if(Input.GetAxis("Fire1")!=0f && podeAtacar)
             {
                 anim.SetFloat("horizontal",Horizontal);
                 anim.SetFloat("vertical",Vertical);
-                //skin.GetComponent<Animator>().Play("ataque", -1);
                 anim.SetBool("ataque",true);
                 Invoke("TravaAtaque",0.5f);
                 podeAtacar = false;
                 Invoke("TempoImpedeAtaque",1f);
-            
-                
             }
             else
             {
@@ -219,16 +209,7 @@ public class Eva : MonoBehaviour
     {
         podeAtacar = true;
     }
-
-    /*void SobeEstamina()
-    {
-        if(estamina < 100)
-        {
-            estamina += 10;
-        }
-    }*/
     
-
     internal void FeedBackDano()
     {
         
