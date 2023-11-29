@@ -37,7 +37,7 @@ public class Eva : MonoBehaviour
     [SerializeField] GameObject jogador;
     [SerializeField] TrailRenderer trailRenderer;
    
-    float velocidadeAtual;
+    internal float velocidadeAtual;
     bool podeDash = true;
     bool podeAtacar = true;
     [SerializeField] internal bool destravaAtaque = false;
