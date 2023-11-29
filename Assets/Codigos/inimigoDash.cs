@@ -35,7 +35,7 @@ public class inimigoDash : MonoBehaviour
            else
            {
                 Vector2 direcao = (jogador.position - transform.position).normalized;
-                transform.Translate(-direcao * velocidadeDash * Time.deltaTime);
+                transform.Translate(direcao * velocidadeDash * Time.deltaTime);
            }
            
         }

@@ -9,5 +9,6 @@ public class drop : MonoBehaviour
     internal void DropdeModeda()
     {
         GameObject prefab = Instantiate(Prefab, transform.position, transform.rotation);
+        
     }
 }
