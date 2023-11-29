@@ -5,14 +5,14 @@ using UnityEngine;
 public class inimigoDash : MonoBehaviour
 {
     private Transform jogador;
-    public Vector2 pontoInicial = new Vector2(0, 0);
-    public Vector2 pontoFinal = new Vector2(0, 0);
-    public float velocidade = 2.0f;
-    public float velocidadeDash = 10.0f;
-    public float alcance = 5.0f;
+    [SerializeField] Vector2 pontoInicial = new Vector2(0, 0);
+    [SerializeField] Vector2 pontoFinal = new Vector2(0, 0);
+    [SerializeField] float velocidade = 2.0f;
+    [SerializeField] float velocidadeDash = 10.0f;
+    [SerializeField] float alcance = 5.0f;
 
     private bool indoParaPontoFinal = true;
-    public float intervaloDash = 3f;  
+    [SerializeField] float intervaloDash = 3f;  
     private float tempoDash;
 
     void Start()
@@ -29,13 +29,13 @@ public class inimigoDash : MonoBehaviour
         {
            if(Time.time - tempoDash < intervaloDash)
            {
-            Vector2 direcao = (jogador.position - transform.position).normalized;
-            transform.Translate(direcao * velocidade * Time.deltaTime);
+                Vector2 direcao = (jogador.position - transform.position).normalized;         
+                transform.Translate(direcao * velocidade * Time.deltaTime);
            }
            else
            {
-            Vector2 direcao = (jogador.position - transform.position).normalized;
-            transform.Translate(direcao * velocidadeDash * Time.deltaTime);
+                Vector2 direcao = (jogador.position - transform.position).normalized;
+                transform.Translate(-direcao * velocidadeDash * Time.deltaTime);
            }
            
         }

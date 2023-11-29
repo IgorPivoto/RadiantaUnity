@@ -5,7 +5,7 @@ using UnityEngine;
 public class Ataque : MonoBehaviour
 {
     [SerializeField] int danoAtaque;
-    void OnTriggerEnter2D(Collider2D other) 
+    void OnTriggerEnter2D(Collider2D other)     
     {
         if(other.CompareTag("Inimigo"))
         {
