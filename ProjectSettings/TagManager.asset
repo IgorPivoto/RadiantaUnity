@@ -13,6 +13,7 @@ TagManager:
   - Ragu
   - NPC
   - Inimigo
+  - Fase1
   layers:
   - Default
   - TransparentFX
