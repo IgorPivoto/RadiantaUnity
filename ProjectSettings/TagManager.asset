@@ -12,6 +12,7 @@ TagManager:
   - RenascerFimVila
   - Ragu
   - NPC
+  - Inimigo
   layers:
   - Default
   - TransparentFX

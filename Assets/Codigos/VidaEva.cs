@@ -26,7 +26,7 @@ public class VidaEva : MonoBehaviour
    
     public void RemoveVida(int dano)
     {
-        vida = vida - dano;
+        vida -= dano;
     }
 
 }
