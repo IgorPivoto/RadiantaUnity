@@ -18,7 +18,7 @@ public class Renascer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {   
-        Debug.Log(numeroDeRespawn);
+        //Debug.Log(numeroDeRespawn);
         Eva eva = gameObject.GetComponent<Eva>();
         VidaEva vidaEva = gameObject.GetComponent<VidaEva>();
         if (renascer1 == true)
@@ -32,6 +32,7 @@ public class Renascer : MonoBehaviour
                    
                     eva.transform.position = portaoFinaldaVila.transform.position;
                     vidaEva.vida = 100;
+                    eva.estamina = 100;
                     timer = 0;
                     numeroDeRespawn ++;
                 }   
@@ -45,7 +46,7 @@ public class Renascer : MonoBehaviour
     {
         if(other.CompareTag("RenascerFimVila")){
             renascer1 = true;
-            Debug.Log(renascer1);
+            //Debug.Log(renascer1);
         }
     }
 }

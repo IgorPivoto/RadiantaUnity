@@ -11,17 +11,16 @@ public class Eva : MonoBehaviour
     #region varivavel
     [Header("Configuração de velocidade")]
     [SerializeField] internal float velocidade;
-    
     [SerializeField] float dashVelocidade;
-
     [SerializeField] internal float tempoImpedeDash;
-    [SerializeField] float tempoParaAtivarMana = 2f;
+    [SerializeField] int moedas = 0;
+    /*[SerializeField] float tempoParaAtivarMana = 2f;
     [SerializeField] float manaAtual = 0f;
-    [SerializeField] float manaMaxima = 100f;
+    [SerializeField] float manaMaxima = 100f;*/
     private int DashTemp = 1;
 
-    private bool estaPressionandoEspaco = false;
-    private float tempoPressionandoEspaco = 0f;
+    //private bool estaPressionandoEspaco = false;
+    //private float tempoPressionandoEspaco = 0f;
 
     [SerializeField]
     [Range(0,100)] 
@@ -32,15 +31,16 @@ public class Eva : MonoBehaviour
     
     [SerializeField] Rigidbody2D rig;
 
-    [SerializeField] Animator anim;
+    [SerializeField] internal Animator anim;
 
     [SerializeField] internal Transform skin;
     [SerializeField] GameObject jogador;
+    [SerializeField] TrailRenderer trailRenderer;
    
     float velocidadeAtual;
     bool podeDash = true;
     bool podeAtacar = true;
-    internal bool destravaAtaque = false;
+    [SerializeField] internal bool destravaAtaque = false;
     [SerializeField] internal bool destravaDash = false;
     internal float tempoEstamina = 0;
 
@@ -49,12 +49,15 @@ public class Eva : MonoBehaviour
     
     void Start()
     {
-        //rig = GetComponent<Rigidbody2D>();
+        trailRenderer.emitting = false;
         velocidadeAtual = velocidade;
-        DontDestroyOnLoad(jogador);     
+     
     }
 
-    // Update is called once per frame
+    /*void FixedUpdate() 
+    {
+        Movimento();
+    }*/
     void Update()
     {   
         //ApertandoMana();
@@ -64,7 +67,7 @@ public class Eva : MonoBehaviour
         Morte();
         
     }
-    void ApertandoMana()
+    /*void ApertandoMana()
     {
         if (Input.GetKey(KeyCode.Space))
         {
@@ -97,7 +100,7 @@ public class Eva : MonoBehaviour
         tempoPressionandoEspaco = 0f;
         Debug.Log("Mana ativada!");
         DashTemp =4;
-    }
+    }*/
 
     void Movimento()
     {
@@ -113,6 +116,7 @@ public class Eva : MonoBehaviour
 
         if(movimento != Vector3.zero)
         {
+            Debug.Log("Movimento() chamado");
             anim.SetFloat("idle_horizontal",movimento.x);
             anim.SetFloat("Idle_vertical",movimento.y);
         }
@@ -134,6 +138,7 @@ public class Eva : MonoBehaviour
                 {
                     velocidadeAtual = dashVelocidade*DashTemp;
                     estamina -= 20;
+                    trailRenderer.emitting = true;
                     Invoke("Posdash",0.1f);
                     podeDash = false; 
                     Invoke("HabilitarDash", tempoImpedeDash);
@@ -153,16 +158,11 @@ public class Eva : MonoBehaviour
 
     private void SobeEstamina()
     {   
-        Hud hud = gameObject.GetComponent<Hud>();
-
-       
-        //Debug.Log(tempoEstamina);
         tempoEstamina += Time.deltaTime;
         if(tempoEstamina >= 2.0f)
         {
             tempoEstamina = 0;
             estamina += 10;
-            //hud.ControlaBarraEstamina();
             estamina = Mathf.Clamp(estamina, 0, 100);
         }
     }
@@ -171,6 +171,7 @@ public class Eva : MonoBehaviour
     void Posdash()
     {
         velocidadeAtual = velocidade;
+        trailRenderer.emitting = false;
     }
 
     void HabilitarDash()
@@ -181,22 +182,17 @@ public class Eva : MonoBehaviour
     void Ataque()
     {
         if(destravaAtaque == true)
-        {
-            
-            
+        {  
             float Horizontal = Input.GetAxis("Horizontal");
             float Vertical = Input.GetAxis("Vertical");
-            if(Input.GetAxis("Fire1")!=0f&&podeAtacar)
+            if(Input.GetAxis("Fire1")!=0f && podeAtacar)
             {
                 anim.SetFloat("horizontal",Horizontal);
                 anim.SetFloat("vertical",Vertical);
-                //skin.GetComponent<Animator>().Play("ataque", -1);
                 anim.SetBool("ataque",true);
                 Invoke("TravaAtaque",0.5f);
                 podeAtacar = false;
                 Invoke("TempoImpedeAtaque",1f);
-            
-                
             }
             else
             {
@@ -214,17 +210,8 @@ public class Eva : MonoBehaviour
     {
         podeAtacar = true;
     }
-
-    /*void SobeEstamina()
-    {
-        if(estamina < 100)
-        {
-            estamina += 10;
-        }
-    }*/
     
-
-    public void FeedBackDano()
+    internal void FeedBackDano()
     {
         
         if(GetComponent<VidaEva>().vida > 1)
@@ -243,7 +230,7 @@ public class Eva : MonoBehaviour
         anim.SetBool("hit",false);
     }
 
-    void Morte()
+    internal void Morte()
     {
        
         if(GetComponent<VidaEva>().vida <= 0)
@@ -259,6 +246,11 @@ public class Eva : MonoBehaviour
             
             anim.SetBool("morte",false);
         }
+    }
+
+    internal void AdicionarValorMoeda(int valor)
+    {
+        moedas += valor; 
     }
 
     void OnCollisionEnter2D(Collision2D other) 
