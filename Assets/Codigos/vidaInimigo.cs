@@ -7,17 +7,11 @@ public class vidaInimigo : MonoBehaviour
     [SerializeField] internal int quantidadeVida;
     [SerializeField] GameObject corpoDoInimigo;
 
-    void Start()
-    {
-        
-    }
-    void Update()
-    {
-        MorteInimigo();
-    }
+   
     internal void Vida(int dano)
     {
         quantidadeVida -= dano;
+        MorteInimigo();
     }
     internal void MorteInimigo()
     {
