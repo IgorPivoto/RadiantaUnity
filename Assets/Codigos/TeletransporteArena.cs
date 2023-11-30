@@ -4,34 +4,64 @@ using UnityEngine;
 
 public class TeletransporteArena : MonoBehaviour
 {
-    [SerializeField] Transform teletransporteEntrada;
-    [SerializeField] Transform teletransporteSaida;
+    [SerializeField] KeyCode teclaTeleporte = KeyCode.T;
+    [SerializeField] Vector3 coordenadasDestino;
+    [SerializeField] GameObject jogador;
+    [SerializeField] float raio;
+    [SerializeField] LayerMask playerLayer;
 
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Eva"))
+    bool naArea = false;
+    
+    private void FixedUpdate() 
+    {     
+        Area();  
+    }
+    void Update() 
+    {     
+        if(Input.GetKeyDown(teclaTeleporte) && naArea == true)
         {
-            Debug.Log("Pressione 'T' para teleportar");
+            Teleportar();
+        }
+    }
+    void OnTriggerEnter2D(Collider2D other) 
+    {
+        if(other.CompareTag("Eva"))
+        {
+            
         }
     }
 
-    void OnTriggerStay(Collider other)
+    void Area()
     {
-        if (Input.GetKeyDown(KeyCode.T) && other.CompareTag("Eva"))
+        Collider2D hit = Physics2D.OverlapCircle(transform.position, raio, playerLayer);
+
+        if (hit != null)
         {
-            Teleportar(other.gameObject);
+            naArea = true;
+            
+            Debug.Log("entrei na area" + naArea);
+        }
+        else 
+        {
+            naArea = false;
+            
+            Debug.Log("sai da area" + naArea);
         }
     }
 
-    void Teleportar(GameObject objeto)
+    void Teleportar()
     {
-        if (teletransporteEntrada != null && teletransporteSaida != null)
+        if (jogador != null)
         {
-            objeto.transform.position = teletransporteSaida.position;
+            jogador.transform.position = coordenadasDestino;
         }
         else
         {
-            Debug.LogError("Os pontos de teletransporte não foram atribuídos.");
+            Debug.LogError("Jogador não encontrado. Certifique-se de ter marcado o jogador com a tag 'Player'.");
         }
+    }
+    private void OnDrawGizmosSelected() 
+    {
+        Gizmos.DrawWireSphere(transform.position, raio);   
     }
 }
