@@ -53,10 +53,7 @@ public class Dialago : MonoBehaviour
 
     public void InteraçãoDialago()
     {
-       
-        
         Collider2D hit = Physics2D.OverlapCircle(transform.position, raio, playerLayer);
-
         if (hit != null)
         {
             naArea = true;
@@ -68,10 +65,7 @@ public class Dialago : MonoBehaviour
             naArea = false;
             
             Debug.Log("sai da area" + naArea);
-        }
-        
-    
-        
+        } 
     }
     private void OnDrawGizmosSelected() 
     {
