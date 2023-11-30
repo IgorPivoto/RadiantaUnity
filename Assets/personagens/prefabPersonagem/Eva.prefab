@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 663223255037505788}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.000000066227386, z: -2.2222223}
+  m_LocalPosition: {x: 0, y: 0, z: -2.2222223}
   m_LocalScale: {x: 0.22222224, y: 0.22222224, z: 0.22222224}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -413,7 +413,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6107782311984473112}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.00000029802322, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -587,6 +587,7 @@ GameObject:
   - component: {fileID: 7833773372552806517}
   - component: {fileID: 8644510343735211241}
   - component: {fileID: 9080295651922544931}
+  - component: {fileID: 7650855275237148864}
   - component: {fileID: 106593895240253688}
   m_Layer: 0
   m_Name: Eva
@@ -702,9 +703,7 @@ MonoBehaviour:
   velocidade: 6.5
   dashVelocidade: 35
   tempoImpedeDash: 1
-  tempoParaAtivarMana: 2
-  manaAtual: 0
-  manaMaxima: 100
+  moedas: 0
   estamina: 0
   rig: {fileID: 7833773372552806516}
   anim: {fileID: 7833773372552806513}
@@ -808,6 +807,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   portaoFinaldaVila: {fileID: 0}
+  tagsLocal: 
+--- !u!114 &7650855275237148864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7833773372552806506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 716b957538129d6449b7e639ea384aa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  portaoFinaldaVila: {fileID: 0}
+  tagsLocal: 
 --- !u!96 &106593895240253688
 TrailRenderer:
   serializedVersion: 2

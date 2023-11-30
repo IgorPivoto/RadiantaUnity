@@ -7,9 +7,7 @@ public class Renascer : MonoBehaviour
 
 
     [SerializeField] GameObject portaoFinaldaVila;
-
-    
-    
+    [SerializeField] string tagsLocal;
     bool renascer1=false;
     float timer = 0;
 
@@ -44,7 +42,8 @@ public class Renascer : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other) 
     {
-        if(other.CompareTag("RenascerFimVila")){
+        
+        if(other.CompareTag(tagsLocal)){
             renascer1 = true;
             //Debug.Log(renascer1);
         }

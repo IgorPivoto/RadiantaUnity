@@ -4,35 +4,28 @@ using UnityEngine;
 
 public class LeiserCode : MonoBehaviour
 {
-    public float speed = 5f; 
-    private Vector2 direcaoDoJogador; 
+    public float speed; 
+
     void Start()
     {
-        GameObject jogadorObjeto = GameObject.FindGameObjectWithTag("Eva");
-
-        if (jogadorObjeto != null)
-        {
-          
-            direcaoDoJogador = (jogadorObjeto.transform.position - transform.position).normalized;
-        }
-        else
-        {
-            Debug.LogError("Não foi possível encontrar o jogador. Certifique-se de que o jogador tem a tag 'Player'.");
-        }
-
-    
-        transform.Translate(direcaoDoJogador * speed * Time.deltaTime, Space.World);
+        
     }
 
     void Update()
     {
-       
-        transform.Translate(direcaoDoJogador * speed * Time.deltaTime, Space.World);
+        transform.Translate(Vector2.down * speed * Time.deltaTime);
     }
 
+    
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Barreira"))
+        if(collision.gameObject.tag == "Eva")
+        {
+            VidaEva eva = FindObjectOfType<VidaEva>();
+            eva.vida -= 20;
+            Destroy(gameObject);
+        }
+        if(collision.gameObject.tag == "Barreira")
         {
             Destroy(gameObject);
         }

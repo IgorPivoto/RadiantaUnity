@@ -11,5 +11,9 @@ public class Ataque : MonoBehaviour
         {
             other.GetComponent<vidaInimigo>().Vida(danoAtaque);
         }    
+        if(other.CompareTag("ia"))
+        {
+            other.GetComponent<VidaIA>().Vida(danoAtaque);
+        } 
     }
 }

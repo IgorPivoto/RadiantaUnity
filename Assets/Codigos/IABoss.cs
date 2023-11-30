@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class IABoss : MonoBehaviour
@@ -10,15 +11,19 @@ public class IABoss : MonoBehaviour
     [SerializeField] float intervaloTeleporte = 3f; 
 
     [SerializeField] GameObject prefab; 
+
+    float timer = 0f;
     private float tempoUltimoTeleporte;
 
     void Start()
     {
         tempoUltimoTeleporte = Time.time;
+        
     }
 
     void Update()
     {
+        timer += Time.deltaTime;
         float Distancia = Vector2.Distance(new Vector2(transform.position.x, transform.position.y), new Vector2(Jogador.position.x, Jogador.position.y));
 
 
@@ -27,10 +32,19 @@ public class IABoss : MonoBehaviour
             MovimentoTeleporte();
             tempoUltimoTeleporte = Time.time;
         }
-        else
-        {
-            MovimentoLaser();
+        else if(Distancia < 15)
+        {   
+            Debug.Log(timer);
+            if(timer >=1.5f)
+            {
+                MovimentoLaser();
+                timer = 0f;
+            }
+            
+            
         }
+        
+        
     }
 
     void MovimentoTeleporte()
@@ -40,7 +54,10 @@ public class IABoss : MonoBehaviour
     }
 
     void MovimentoLaser()
-    {
+    {   
+
+
+        prefab.transform.position = transform.position;
         Instantiate(prefab);
 
     }
