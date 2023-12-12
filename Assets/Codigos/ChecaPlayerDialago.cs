@@ -29,11 +29,11 @@ public class ChecaPlayerDialago : MonoBehaviour
         if(other.CompareTag("Eva"))
         {
             Debug.Log("desativei o script de dialago");
-            dialago.falando = false;
-            dialago.enabled = false;
-            controleDialago.objetoDialago.SetActive(false);
-            controleDialago.dialago.text = "";
-            controleDialago.nomePersonagem.text = ""; 
+            //dialago.falando = false;
+            //dialago.enabled = false;
+            //controleDialago.objetoDialago.SetActive(false);
+            //controleDialago.dialago.text = "";
+            //controleDialago.nomePersonagem.text = ""; 
         }
     }
 }

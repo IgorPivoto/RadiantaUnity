@@ -74,7 +74,7 @@ public class Dialago : MonoBehaviour
     
     
     internal void PodeFalar(){
-        falando = false;
+        //falando = false;
         Debug.Log("estou podendo falar");
         Debug.Log("posso falar? " + falando);
     }
