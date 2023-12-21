@@ -16,6 +16,7 @@ TagManager:
   - Fase1
   - Barreira
   - RenascerBossIa
+  - cenario
   layers:
   - Default
   - TransparentFX
